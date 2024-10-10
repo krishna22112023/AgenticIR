@@ -1,0 +1,5 @@
+OPENAI_API_KEY: ""
+# OPENAI_MODEL: "gpt-4-vision-preview"
+OPENAI_MODEL: "gpt-4-turbo"
+MAX_TOKENS: 3000
+TEMPERATURE: 0.0
