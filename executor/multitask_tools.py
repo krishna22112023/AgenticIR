@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 import yaml
 import shutil
-import subprocess
 
 from .tool import Tool
 

@@ -21,7 +21,7 @@ def degrade(img, degradation, idx):
     return router[degradation](img)
 
 
-base_dir = Path() / "dataset"
+base_dir = Path("dataset")
 hq_dir = base_dir / "HQ"
 degras_path = base_dir / "degradations.txt"
 

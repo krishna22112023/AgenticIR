@@ -4,7 +4,7 @@ import shutil
 import time
 import cv2
 
-from custom_types import Subtask, ToolName
+from utils.custom_types import Subtask, ToolName
 
 from .super_resolution import sr_toolbox
 from .denoising import denoising_toolbox

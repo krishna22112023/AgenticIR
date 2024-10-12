@@ -3,8 +3,8 @@ from tqdm import tqdm
 import json
 
 from vlm import DepictQA
-from img_tree import ImgTree
-from utils import sorted_rglob, sorted_glob
+from utils.img_tree import ImgTree
+from utils.misc import sorted_glob
 
 
 train_dir = [

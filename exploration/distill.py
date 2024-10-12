@@ -1,6 +1,7 @@
 import json
+
 from vlm import GPT4
-import prompts
+from pipeline import prompts
 
 
 def build_one_exp(degradations, experience):

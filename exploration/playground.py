@@ -3,10 +3,9 @@
 from flask import Flask, render_template, request
 from pathlib import Path
 import shutil
-from time import localtime, strftime
 
-from img_tree import ImgTree, ImgNode
-from executor import executor, Tool
+from utils.img_tree import ImgTree, ImgNode
+from executor import executor
 
 
 BASE_DIR: Path = Path() / 'manual_exp_res'

@@ -4,8 +4,8 @@ import logging
 from typing import Optional
 
 from .base_vlm import BaseVLM
-from prompts import depictqa_evaluate_degradation_prompt, depictqa_compare_prompt
-from custom_types import Degradation
+from pipeline.prompts import depictqa_evaluate_degradation_prompt, depictqa_compare_prompt
+from utils.custom_types import Degradation, Level
 
 
 class DepictQA(BaseVLM):
@@ -65,13 +65,13 @@ class DepictQA(BaseVLM):
                 ), f"Unexpected degradation: {degradation}"
             degradations_lst = [degradation]
 
-        levels = {"very low", "low", "medium", "high", "very high"}
-        res: list[tuple[Degradation, str]] = []
+        levels: set[Level] = {"very low", "low", "medium", "high", "very high"}
+        res: list[tuple[Degradation, Level]] = []
         for degradation in degradations_lst:
             prompt = depictqa_evaluate_degradation_prompt.format(
                 degradation=degradation
             )
-            url = "http://10.122.23.43:5001/evaluate_degradation"
+            url = "http://127.0.0.1:5001/evaluate_degradation"
             payload = {"imageA_path": img.resolve(), "prompt": prompt}
             rsp: str = requests.post(
                 url, data=payload, proxies={"http": None, "https": None}
@@ -86,15 +86,13 @@ class DepictQA(BaseVLM):
 
     def compare_img_qual(self, img1: Path, img2: Path) -> tuple[str, str]:
         prompt = depictqa_compare_prompt
-        url = "http://10.122.23.43:5002/compare_quality"
+        url = "http://127.0.0.1:5002/compare_quality"
         payload = {
             "imageA_path": img1.resolve(),
             "imageB_path": img2.resolve(),
             "prompt": prompt
         }
-        rsp: str = requests.post(
-            url, data=payload, proxies={"http": None, "https": None}
-        ).json()["answer"]
+        rsp: str = requests.post(url, data=payload).json()["answer"]
 
         if "A" in rsp and "B" not in rsp:
             choice = "former"

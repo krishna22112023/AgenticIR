@@ -4,8 +4,8 @@ import shutil
 from tqdm import tqdm
 
 from executor import executor
-from utils import sorted_glob, sorted_rglob
-from img_tree import ImgTree
+from utils.misc import sorted_glob, sorted_rglob
+from utils.img_tree import ImgTree
 
 
 distortion_subtask_dict = {

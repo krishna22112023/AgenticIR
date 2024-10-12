@@ -3,8 +3,8 @@ import logging
 from typing import Optional
 import yaml
 
-from utils import encode_img
-from logger import get_logger
+from utils.misc import encode_img
+from utils.logger import get_logger
 
 
 class BaseVLM:

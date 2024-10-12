@@ -8,12 +8,12 @@ import random
 from typing import Optional
 
 from vlm import GPT4, DepictQA
-import prompts
+from . import prompts
 from executor import executor, Tool
-from img_tree import ImgTree
-from logger import get_logger
-from utils import sorted_glob
-from custom_types import *
+from utils.img_tree import ImgTree
+from utils.logger import get_logger
+from utils.misc import sorted_glob
+from utils.custom_types import *
 
 
 class IRAgent:

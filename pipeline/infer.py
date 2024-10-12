@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from iragent import IRAgent
-from custom_types import *
+from utils.custom_types import *
 
 
 input_path = Path("dataset/example").resolve()

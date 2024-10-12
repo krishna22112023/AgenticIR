@@ -2,8 +2,8 @@ from pathlib import Path
 import json
 from tqdm import tqdm
 
-from scorer import scorer, METRIC_NAME_LST
-from utils import sorted_glob, sorted_rglob
+from utils.scorer import scorer, METRIC_NAME_LST
+from utils.misc import sorted_glob
 
 
 def get_task_scores(task_dir: Path,) -> dict[str, float]:

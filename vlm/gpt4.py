@@ -7,7 +7,7 @@ import random
 import re
 
 from .base_vlm import BaseVLM
-from utils import encode_img
+from utils.misc import encode_img
 
 
 class GPT4(BaseVLM):
@@ -121,11 +121,7 @@ class GPT4(BaseVLM):
         while True:
             try:
                 response = requests.post("https://api.openai.com/v1/chat/completions",
-                                         headers=headers, json=payload,
-                                         proxies={
-                                            "http": "http://closeai-proxy.pjlab.org.cn:23128",
-                                            "https": "http://closeai-proxy.pjlab.org.cn:23128"
-                                        })
+                                         headers=headers, json=payload)
                 is_valid, recommended_delay = self._check_response(response)
                 if is_valid:
                     return response
@@ -144,9 +140,6 @@ class GPT4(BaseVLM):
             else:
                 backoff_delay *= exp_base * (1 + jitter*random.random())
                 delay = backoff_delay
-            ###### tmp #####
-            delay *= 1.1
-            ###### tmp #####
             self._log(
                 f"Retrying in {delay:.3f} seconds...", level='warning')
             sleep(delay)

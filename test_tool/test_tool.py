@@ -4,7 +4,7 @@ import shutil
 from time import localtime, strftime
 
 from executor import executor
-from custom_types import Subtask, ToolName
+from utils.custom_types import Subtask, ToolName
 
 
 def test_a_tool(ori_input_path: Path, subtask: Subtask, tool_name: ToolName):

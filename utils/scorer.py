@@ -87,9 +87,3 @@ class Scorer:
 
 
 scorer = Scorer()
-
-if __name__ == "__main__":
-    img_path: Path = None
-    ref_img_path: Path = None
-    scores = scorer(img_path, ref_img_path)
-    print(scores)

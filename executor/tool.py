@@ -2,7 +2,6 @@ import os
 from pathlib import *
 import subprocess
 import time
-import shutil
 
 
 class Tool:

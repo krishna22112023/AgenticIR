@@ -131,7 +131,7 @@ def darken(img, darken_type: str | None = None, arg=None):
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 
-def add_haze(img, idx, depth_dir=Path().resolve()/"dataset"/"depth", A=None, beta=None):
+def add_haze(img, idx, depth_dir=Path("dataset/depth").resolve(), A=None, beta=None):
     """Adds haze by atmospheric scattering model I(x) = J(x)t(x) + A(1-t(x)), where t(x) = exp(-beta d(x)). This code is adapted from that of [MiOIR](https://github.com/Xiangtaokong/MiOIR). Following [RESIDE](https://ieeexplore.ieee.org/document/8451944), A ~ U(0.7, 1.0), beta ~ U(0.6, 1.8)."""
 
     img = img.copy()
