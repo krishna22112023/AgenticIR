@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from iragent import IRAgent
+from .iragent import IRAgent
 from utils.custom_types import *
 
 
-input_path = Path("dataset/example").resolve()
+input_path = Path("dataset/example.png").resolve()
 output_dir = Path("output").resolve()
 
 agent = IRAgent(
@@ -18,4 +18,3 @@ agent = IRAgent(
     )
 
 agent.run()
-print(f"Result saved in {agent.res_path}.")

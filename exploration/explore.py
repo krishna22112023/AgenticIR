@@ -2,7 +2,7 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from vlm import DepictQA
+from llm import DepictQA
 from utils.img_tree import ImgTree
 from utils.misc import sorted_glob
 

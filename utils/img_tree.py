@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Optional
 
 from .custom_types import Subtask, ToolName
 from .misc import sorted_glob, sorted_rglob
@@ -86,7 +87,7 @@ class ImgTree:
     ```
     """
 
-    def __init__(self, tree_dir: Path, html_dir: Path | None = None):
+    def __init__(self, tree_dir: Path, html_dir: Optional[Path] = None):
         self.tree_dir: Path = tree_dir
         self.root: ImgNode = ImgNode(
             self.tree_dir / '0-img', is_root=True)

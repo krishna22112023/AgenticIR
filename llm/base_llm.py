@@ -7,7 +7,7 @@ from utils.misc import encode_img
 from utils.logger import get_logger
 
 
-class BaseVLM:
+class BaseLLM:
     def __init__(self,
                  config_path: Optional[Path] = None,
                  log_path: Optional[Path] = None,

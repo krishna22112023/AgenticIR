@@ -2,6 +2,7 @@ import os
 from pathlib import *
 import subprocess
 import time
+from typing import Optional
 
 
 class Tool:
@@ -10,20 +11,20 @@ class Tool:
     Args:
         tool_name (str): Tool name, a valid identifier serving as the name of environment, configuration file, etc. An exception is that if there's '_' in the name, the environment name will be the part before '_'.
         subtask (str): Subtask name, serving as the name of the directory for the subtask.
-        work_dir (str | None): Basename of working directory. Defaults to None.
-        script_rel_path (Path | str | None): Path relative to the working directory of the script to run. Defaults to None.
+        work_dir (str | None, optional): Basename of working directory. Defaults to None.
+        script_rel_path (Path | str | None, optional): Path relative to the working directory of the script to run. Defaults to None.
     """
 
     def __init__(self,
                  tool_name: str,
                  subtask: str, 
-                 work_dir: Path | None = None,
-                 script_rel_path: Path | str | None = None,
+                 work_dir: Optional[Path] = None,
+                 script_rel_path: Optional[Path | str] = None,
                  ):
         self.tool_name: str = tool_name
         self.subtask: str = subtask
-        self.work_dir: Path | None = None
-        self.script_path: Path | None = None
+        self.work_dir: Optional[Path] = None
+        self.script_path: Optional[Path] = None
         if work_dir is not None:
             assert script_rel_path is not None, "If `work_dir` is provided, `script_rel_path` should also be provided."
             self.work_dir: Path = Path().resolve() / 'executor' / subtask / 'tools' / work_dir

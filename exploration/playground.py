@@ -3,12 +3,13 @@
 from flask import Flask, render_template, request
 from pathlib import Path
 import shutil
+from typing import Optional
 
 from utils.img_tree import ImgTree, ImgNode
 from executor import executor
 
 
-BASE_DIR: Path = Path() / 'manual_exp_res'
+BASE_DIR: Path = Path('manual_exp')
 
 
 class ExpManager:
@@ -19,10 +20,10 @@ class ExpManager:
     """
 
     def __init__(self,
-                 dataset_path: Path | None = None,
-                 start: int | None = 0,
-                 input_path: Path | None = None,
-                 task_dir: Path | None = None
+                 dataset_path: Optional[Path] = None,
+                 start: Optional[int] = 0,
+                 input_path: Optional[Path] = None,
+                 task_dir: Optional[Path] = None
                  ):
         if dataset_path is not None:  # mode: batch
             self._iter: list[Path] = sorted(list(dataset_path.glob('*')))
@@ -64,9 +65,9 @@ class ExpManager:
 
 class TaskManager:
     def __init__(self,
-                 input_path: Path | None = None,
-                 exp_dir: Path | None = None,
-                 task_dir: Path | None = None) -> None:
+                 input_path: Optional[Path] = None,
+                 exp_dir: Optional[Path] = None,
+                 task_dir: Optional[Path] = None) -> None:
         """Prepare the directory for the task."""
         if input_path is not None:
             self._input_path: Path = input_path
@@ -194,7 +195,7 @@ if __name__ == '__main__':
     # exp_manager = ExpManager(dataset_path=dataset_path, start=22)
 
     # mode: single
-    input_path: Path = None
+    input_path: Path = Path("dataset/example.png").resolve()
     exp_manager = ExpManager(input_path=input_path)
 
     # # mode: resume

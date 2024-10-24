@@ -2,7 +2,7 @@ from pathlib import Path
 import cv2
 from tqdm import tqdm
 
-from add_single_degradation import *
+from .add_single_degradation import *
 
 
 def degrade(img, degradation, idx):

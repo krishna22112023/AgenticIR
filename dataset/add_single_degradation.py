@@ -4,6 +4,7 @@ import cv2
 from scipy.io import loadmat
 import torch
 import math
+from typing import Optional
 from basicsr.data.degradations import random_add_gaussian_noise_pt, random_add_poisson_noise_pt
 from basicsr.utils.matlab_functions import imresize
 
@@ -38,7 +39,7 @@ def lr(img, keep_size=False):
     return img
 
 
-def add_noise(img, noise_type: str | None = None, arg=None):
+def add_noise(img, noise_type: Optional[str] = None, arg=None):
     """Adds Gaussian or Poisson noise to the image."""
 
     img = img.copy()
@@ -79,7 +80,7 @@ def add_noise(img, noise_type: str | None = None, arg=None):
     return lq
 
 
-def add_jpeg_comp_artifacts(img, quality_factor: int | None = None):
+def add_jpeg_comp_artifacts(img, quality_factor: Optional[int] = None):
     """Applies JPEG compression. `quality_factor: int` in [10, 30)."""    
 
     img = img.copy()
@@ -90,7 +91,7 @@ def add_jpeg_comp_artifacts(img, quality_factor: int | None = None):
     return img
 
 
-def darken(img, darken_type: str | None = None, arg=None):
+def darken(img, darken_type: Optional[str] = None, arg=None):
     """Darkens the image by one of three methods: constant shift, gamma correction, linear mapping."""    
 
     img = img.copy()
@@ -152,7 +153,7 @@ def add_haze(img, idx, depth_dir=Path("dataset/depth").resolve(), A=None, beta=N
     return (img * t + A * 255 * (1 - t)).clip(0,255).round().astype(np.uint8)
 
 
-def add_motion_blur(img, severity: int | None = None):
+def add_motion_blur(img, severity: Optional[int] = None):
     """Adds motion blur. `severity: int` in {0,1,2}. This code is adpted from that of [imagecorruptions](https://github.com/bethgelab/imagecorruptions)."""
 
     img = img.copy()
@@ -202,7 +203,7 @@ def add_motion_blur(img, severity: int | None = None):
     return img
 
 
-def add_defocus_blur(img, severity: int | None = None):
+def add_defocus_blur(img, severity: Optional[int] = None):
     """Adds defocus blur. `severity: int` in {0,1,2}. This code is adpted from that of [imagecorruptions](https://github.com/bethgelab/imagecorruptions)."""
 
     img = img.copy()
@@ -234,7 +235,7 @@ def add_defocus_blur(img, severity: int | None = None):
     return img
 
 
-def add_rain(img, value: int | None = None):
+def add_rain(img, value: Optional[int] = None):
     """Adds rain. This code is adapted from that of [MiOIR](https://github.com/Xiangtaokong/MiOIR)."""
 
     img = img.copy()
@@ -278,11 +279,3 @@ def add_rain(img, value: int | None = None):
     np.clip(img, 0, 255, out=img)
 
     return img.round().astype(np.uint8)
-
-
-if __name__ == "__main__":
-    img = cv2.imread("dataset/HQ/001.png")
-    img = add_motion_blur(img)
-    img = add_noise(img, noise_type="Gaussian", arg=50)
-    img = lr(img)
-    cv2.imwrite("test.png", img)

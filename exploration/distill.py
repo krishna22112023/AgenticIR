@@ -1,6 +1,6 @@
 import json
 
-from vlm import GPT4
+from llm import GPT4
 from pipeline import prompts
 
 

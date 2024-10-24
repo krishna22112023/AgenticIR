@@ -3,6 +3,7 @@ from pyiqa.models.inference_model import InferenceModel
 import torch
 from pathlib import Path
 import cv2
+from typing import Optional
 from basicsr.utils.matlab_functions import imresize
 
 
@@ -41,7 +42,7 @@ class Scorer:
             for metric in self.metrics
         }
 
-    def __call__(self, img_path: Path, ref_img_path: Path | None = None
+    def __call__(self, img_path: Path, ref_img_path: Optional[Path] = None
                  ) -> list[tuple[str, bool, float]]:
         """Returns a list of tuples: (metric name, whether lower is better, score)."""
 
@@ -78,7 +79,8 @@ class Scorer:
         return img
 
     def _get_score(self, metric: InferenceModel,
-                   img: torch.Tensor, ref_img: torch.Tensor | None = None) -> float:
+                   img: torch.Tensor, 
+                   ref_img: Optional[torch.Tensor] = None) -> float:
         if metric.metric_mode == "NR":
             score = metric(img)
         else:

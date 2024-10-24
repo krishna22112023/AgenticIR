@@ -3,12 +3,12 @@ import requests
 import logging
 from typing import Optional
 
-from .base_vlm import BaseVLM
+from .base_llm import BaseLLM
 from pipeline.prompts import depictqa_evaluate_degradation_prompt, depictqa_compare_prompt
 from utils.custom_types import Degradation, Level
 
 
-class DepictQA(BaseVLM):
+class DepictQA(BaseLLM):
     """Parameters when called: img_path_lst, task (eval_degradation or comp_quality), degradations (if task is eval_degradation)."""
 
     def __init__(
@@ -73,9 +73,7 @@ class DepictQA(BaseVLM):
             )
             url = "http://127.0.0.1:5001/evaluate_degradation"
             payload = {"imageA_path": img.resolve(), "prompt": prompt}
-            rsp: str = requests.post(
-                url, data=payload, proxies={"http": None, "https": None}
-            ).json()["answer"]
+            rsp: str = requests.post(url, data=payload).json()["answer"]
             assert rsp in levels, f"Unexpected response from DepictQA: {list(rsp)}"
             res.append((degradation, rsp))
 

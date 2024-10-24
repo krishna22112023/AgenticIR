@@ -6,11 +6,11 @@ from time import sleep
 import random
 import re
 
-from .base_vlm import BaseVLM
+from .base_llm import BaseLLM
 from utils.misc import encode_img
 
 
-class GPT4(BaseVLM):
+class GPT4(BaseLLM):
     """Parameters when called: img_path_lst, prompt, format_check."""
 
     def __init__(self,
@@ -134,7 +134,7 @@ class GPT4(BaseVLM):
             n_retries += 1
             if n_retries > max_retries:
                 raise RuntimeError(
-                    "Too many errors occurred when querying VLM.")
+                    "Too many errors occurred when querying LLM.")
             if recommended_delay is not None:
                 delay = recommended_delay
             else:
@@ -157,7 +157,7 @@ class GPT4(BaseVLM):
 
         if "error" in response.json():
             err_msg: str = response.json()['error']['message']
-            self._log(f"An error occurred when querying VLM: {err_msg}",
+            self._log(f"An error occurred when querying LLM: {err_msg}",
                       level='warning')
 
             recommended_delay = None

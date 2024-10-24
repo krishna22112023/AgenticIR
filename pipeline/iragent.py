@@ -7,7 +7,7 @@ import json
 import random
 from typing import Optional
 
-from vlm import GPT4, DepictQA
+from llm import GPT4, DepictQA
 from . import prompts
 from executor import executor, Tool
 from utils.img_tree import ImgTree
@@ -21,7 +21,7 @@ class IRAgent:
     Args:
         input_path (Path): Path to the input image.
         output_dir (Path): Path to the output directory, in which a directory will be created.
-        vlm_config_path (Path, optional): Path to the config file of VLM. Defaults to Path("config.yml").
+        llm_config_path (Path, optional): Path to the config file of LLM. Defaults to Path("config.yml").
         evaluate_degradation_by (str, optional): The method of degradation evaluation, "depictqa" or "gpt4v". Defaults to "depictqa".
         with_retrieval (bool, optional): Whether to schedule with retrieval. Defaults to True.
         schedule_experience_path (Path | None, optional): Path to the experience hub. Defaults to Path( "memory/schedule_experience.json").
@@ -35,7 +35,7 @@ class IRAgent:
         self,
         input_path: Path,
         output_dir: Path,
-        vlm_config_path: Path = Path("config.yml"),
+        llm_config_path: Path = Path("config.yml"),
         evaluate_degradation_by: str = "depictqa",
         with_retrieval: bool = True,
         schedule_experience_path: Optional[Path] = Path(
@@ -45,7 +45,7 @@ class IRAgent:
         reflect_by: str = "depictqa",
         with_rollback: bool = True,
         silent: bool = False,
-    ):
+    ) -> None:
         # paths
         self._prepare_dir(input_path, output_dir)
         # state
@@ -59,7 +59,7 @@ class IRAgent:
             with_rollback
         )
         # components
-        self._create_components(vlm_config_path, schedule_experience_path, silent)
+        self._create_components(llm_config_path, schedule_experience_path, silent)
         # constants
         self._set_constants()
 
@@ -114,7 +114,7 @@ class IRAgent:
 
     def _create_components(
         self,
-        vlm_config_path: Path,
+        llm_config_path: Path,
         schedule_experience_path: Optional[Path],
         silent: bool,
     ) -> None:
@@ -135,9 +135,9 @@ class IRAgent:
             silent=silent,
         )
 
-        # VLM
+        # LLM
         self.gpt4 = GPT4(
-            config_path=vlm_config_path,
+            config_path=llm_config_path,
             logger=self.qa_logger,
             silent=silent,
             system_message=prompts.system_message,
@@ -156,8 +156,6 @@ class IRAgent:
 
         # executor
         self.executor = executor
-        self.executed_subtask_cnt = 0
-        # self.conducted_subtasks: set[Subtask] = set()
         random.seed(0)
 
     def _set_constants(self) -> None:
@@ -190,7 +188,7 @@ class IRAgent:
                 self.reschedule()
         self._record_res()
 
-    def propose(self):
+    def propose(self) -> None:
         """Sets the initial plan."""
         evaluation = self.evaluate_degradation()
         agenda = self.extract_agenda(evaluation)
@@ -203,13 +201,6 @@ class IRAgent:
 
     def extract_agenda(self, evaluation: list[tuple[Degradation, Level]]
                        ) -> list[Subtask]:
-        # # fix the order as stupid gpt is sensitive to it
-        # all_degradation = [
-        #     "motion blur", "defocus blur", "rain", "haze",
-        #     "dark", "noise", "jpeg compression artifact",
-        # ]
-        # evaluation.sort(key=lambda x: all_degradation.index(x[0]))
-
         agenda = []
         img_shape = cv2.imread(self.cur_node["img_path"]).shape[:2]
         if max(img_shape) < 300:  # heuristically set
@@ -266,8 +257,7 @@ class IRAgent:
         evaluation = [(ele["degradation"], ele["severity"]) for ele in evaluation]
         return evaluation
 
-    def schedule(self, agenda: list[Subtask], ps: str = ""
-                 ) -> list[Subtask]:
+    def schedule(self, agenda: list[Subtask], ps: str = "") -> list[Subtask]:
         if len(agenda) <= 1:
             return agenda
 
@@ -318,9 +308,7 @@ class IRAgent:
 
         def check_order(order: object):
             assert isinstance(order, list), "Order should be a list."
-            assert set(order) == set(
-                agenda
-            ), f"{order} is not a permutation of {agenda}."
+            assert set(order) == set(agenda), f"{order} is not a permutation of {agenda}."
 
         order = self.gpt4(
             prompt=prompts.schedule_wo_retrieval_prompt.format(
@@ -521,7 +509,7 @@ class IRAgent:
         )
         return comparison["choice"]
 
-    def roll_back(self):
+    def roll_back(self) -> None:
         # backtrack
         self._backtrack()
         step = 1
@@ -564,7 +552,7 @@ class IRAgent:
     def _fully_expanded(self) -> bool:
         return len(self.plan) == len(self.cur_node["children"])
 
-    def _set_best_desc(self):
+    def _set_best_desc(self) -> None:
         candidates = [
             Path(subtask_res["tools"][subtask_res["best_tool"]]["best_descendant"])
             for subtask_res in self.cur_node["children"].values()
@@ -578,7 +566,7 @@ class IRAgent:
         done_subtasks, _ = self._get_execution_path(best_desc_path)
         self.plan = list(set(self.plan) - set(done_subtasks))
 
-    def _backtrack(self):
+    def _backtrack(self) -> None:
         """Returns to the parent of the current node (update plan and cur_node)."""
         this_subtask = self.degra_subtask_dict[self.cur_node["degradation"]]
         self.plan.insert(0, this_subtask)
@@ -597,7 +585,7 @@ class IRAgent:
             node = node["children"][subtask]["tools"][tool]
         return node
 
-    def reschedule(self): 
+    def reschedule(self) -> None:
         if not self.plan:
             return
         
@@ -658,8 +646,6 @@ class IRAgent:
         self.workflow_logger.info(
             f"Executing {subtask} on {self._img_nickname(self.cur_node['img_path'])}..."
         )
-        # self.conducted_subtasks.add(subtask)
-        self.executed_subtask_cnt += 1
 
         subtask_dir = Path(self.cur_node["img_path"]).parents[1] / f"subtask-{subtask}"
         subtask_dir.mkdir()
@@ -694,7 +680,7 @@ class IRAgent:
             "children": {},
         }
 
-    def _record_res(self):
+    def _record_res(self) -> None:
         self.res_path = Path(self.cur_node["img_path"])
         self.workflow_logger.info(
             f"Restoration result: {self._img_nickname(self.res_path)}.")
@@ -703,6 +689,7 @@ class IRAgent:
         self.work_mem["execution_path"]["tools"] = tools
         self._dump_summary()
         shutil.copy(self.res_path, self.work_dir / "result.png")
+        print(f"Result saved in {self.res_path}.")
 
     def _get_execution_path(self, img_path: Path) -> tuple[list[Subtask], list[ToolName]]:
         """Returns the execution path of the restored image (list of subtask and tools)."""
@@ -720,12 +707,11 @@ class IRAgent:
             ├── img_tree
             │   └── 0-img
             │       └── input.png
-            ├── logs
-            |   ├── summary.json
-            |   ├── workflow.log
-            │   ├── vlm_qa.md
-            │   └── img_tree.html
-            └── candidates
+            └── logs
+                ├── summary.json
+                ├── workflow.log
+                ├── llm_qa.md
+                └── img_tree.html
         ```
         """
 
@@ -738,7 +724,7 @@ class IRAgent:
 
         self.log_dir = self.work_dir / "logs"
         self.log_dir.mkdir()
-        self.qa_path = self.log_dir / "vlm_qa.md"
+        self.qa_path = self.log_dir / "llm_qa.md"
         self.workflow_path = self.log_dir / "workflow.log"
         self.work_mem_path = self.log_dir / "summary.json"
 
