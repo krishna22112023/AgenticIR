@@ -24,7 +24,7 @@ class FBCNN(Tool):
     def _get_cmd_opts(self) -> list[str]:
         return [
             "--input_dir", self.input_dir,
-            "--weight_dir", str(Path('/nvme/zhukaiwen/FBCNN/model_zoo')),
+            "--weight_dir", 'FBCNN/model_zoo',
             "--output_dir", self.output_dir,
             "--qf", self.qf
         ]

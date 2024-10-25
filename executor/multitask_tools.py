@@ -120,8 +120,7 @@ class SwinIR(Tool):
         """Requires parameter `input_dir: Path`, `output_dir: Path`, `opt_task: str`, and `model_name: str`."""
         opts = [
             "--task", self.opt_task,
-            "--model_path",
-                Path(f"/nvme/zhukaiwen/SwinIR/model_zoo/swinir/{self.model_name}"),
+            "--model_path", f"SwinIR/model_zoo/swinir/{self.model_name}",
             "--folder_lq", self.input_dir,
             "--save_dir", self.output_dir
         ]
@@ -244,8 +243,7 @@ class MAXIM(Tool):
         """Requires parameter `input_dir: Path`, `output_dir: Path`, `opt_task: str`, and `opt_ckpt_name: str`."""
         return [
             "--task", self.opt_task,
-            "--ckpt_path", str(
-                Path(f"/nvme/zhukaiwen/maxim/maxim/pretrained_models/{self.opt_ckpt_name}")),
+            "--ckpt_path", f"maxim/maxim/pretrained_models/{self.opt_ckpt_name}",
             "--input_dir", self.input_dir,
             "--output_dir", self.output_dir,
             "--has_target=False"

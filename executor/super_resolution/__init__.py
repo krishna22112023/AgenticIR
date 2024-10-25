@@ -34,10 +34,10 @@ class DiffBIR(Tool):
     def _get_cmd_opts(self) -> list[str]:
         return [
             "--input", self.input_dir,
-            "--config", Path().resolve() / 'executor' / self.subtask / 'configs' / 'diffbir.yml',
-            "--ckpt", str(Path("/nvme/zhukaiwen/DiffBIR/weights/general_full_v1.ckpt")),
+            "--config", Path(f"executor/{self.subtask}/configs/diffbir.yml").resolve(),
+            "--ckpt", "DiffBIR/weights/general_full_v1.ckpt",
             "--reload_swinir",
-            "--swinir_ckpt", str(Path("/nvme/zhukaiwen/DiffBIR/weights/general_swinir_v1.ckpt")),
+            "--swinir_ckpt", "DiffBIR/weights/general_swinir_v1.ckpt",
             "--steps", "50",
             "--sr_scale", "4",
             "--color_fix_type", "wavelet",

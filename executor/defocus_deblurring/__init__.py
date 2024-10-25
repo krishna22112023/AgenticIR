@@ -36,7 +36,7 @@ class IFAN(Tool):
             "--network", "IFAN",
             "--config", "config_IFAN_44",
             "--data", "random",
-            "--ckpt_abs_name", Path('/nvme/zhukaiwen/IFAN/ckpt/IFAN_44.pytorch'),
+            "--ckpt_abs_name", 'IFAN/ckpt/IFAN_44.pytorch',
             "--data_offset", self.input_dir,
             "--output_offset", self.output_dir,
         ]
@@ -92,7 +92,7 @@ class DRBNet(Tool):
             "--eval_data", "CUHK",
             "--dataroot_cuhk", self.input_dir,
             "--results_dir", self.output_dir,
-            "--ckpt_path", str(Path('/nvme/zhukaiwen/DRBNet/ckpts/single/single_image_defocus_deblurring.pth')),
+            "--ckpt_path", 'DRBNet/ckpts/single/single_image_defocus_deblurring.pth',
             "--net_mode", "single",
             "--save_images"
         ]
