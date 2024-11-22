@@ -8,3 +8,4 @@ Requests==2.32.3
 scipy==1.14.1
 torch==1.13.0
 tqdm==4.66.1
+llamaapi==0.1.36
