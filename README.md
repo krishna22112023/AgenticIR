@@ -45,6 +45,10 @@ Please refer to [INSTALL.md](installation/INSTALL.md).
 ### Data preparation
 To generate complexly degraded images, run `python -m dataset.synthesize`. You should place clean images in `dataset/HQ/` and corresponding depth maps in `dataset/depth/`. In the paper we use the [MiO100](https://github.com/Xiangtaokong/MiOIR?tab=readme-ov-file#setp-2-download-the-testsets) dataset. The degradation combinations are listed in `dataset/degradations.txt`. You can customize combinations in `dataset/degradations.txt` or degradation types in `dataset/add_single_degradation.py`.
 
+
+The data used in the paper can be downloaded from [this link](https://drive.google.com/drive/folders/1DnMeA1GAoxlP0DET3BrRkbFhyTg4Evda?usp=sharing).
+
+
 ### Learning
 To let the agent learn from exploration, run 
 + `python -m exploration.exhaust_seq` to generate images to explore;
