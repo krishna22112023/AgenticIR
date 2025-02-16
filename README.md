@@ -64,13 +64,11 @@ Run `python -m pipeline.infer` to restore an image (path specified in `pipeline/
 
 ## BibTex
 ```
-@misc{agenticir,
-      title={An Intelligent Agentic System for Complex Image Restoration Problems}, 
+@inproceedings{agenticir,
+      title={An Intelligent Agentic System for Complex Image Restoration Problems},
       author={Kaiwen Zhu and Jinjin Gu and Zhiyuan You and Yu Qiao and Chao Dong},
-      year={2024},
-      eprint={2410.17809},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2410.17809}, 
+      booktitle={The Thirteenth International Conference on Learning Representations},
+      year={2025},
+      url={https://openreview.net/forum?id=3RLxccFPHz}
 }
 ```
