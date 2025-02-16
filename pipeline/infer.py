@@ -1,7 +1,5 @@
 from pathlib import Path
-
 from .iragent import IRAgent
-from utils.custom_types import *
 
 
 input_path = Path("dataset/example.png").resolve()
@@ -15,6 +13,6 @@ agent = IRAgent(
     reflect_by="depictqa",
     with_rollback=True,
     silent=False
-    )
+)
 
 agent.run()

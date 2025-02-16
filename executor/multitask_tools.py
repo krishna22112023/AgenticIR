@@ -81,7 +81,7 @@ class SwinIR(Tool):
     """[SwinIR: Image Restoration Using Swin Transformer (ICCVW 2021)](https://openaccess.thecvf.com/content/ICCV2021W/AIM/papers/Liang_SwinIR_Image_Restoration_Using_Swin_Transformer_ICCVW_2021_paper.pdf) for real SR, denoising, and JPEG compression artifact removal. For each task, there are multiple outputs corresponding to different pretrained models. Note that a file `inference.py` modified from `main_test_swinir.py` is added in the original directory `SwinIR` for inference.
 
     Args:
-        subtask (str): Subtask that can be handled by MAXIM, one of `super_resolution`, `denoising`, and `jpeg_compression_artifact_removal`.
+        subtask (str): Subtask that can be handled by SwinIR, one of `super_resolution`, `denoising`, and `jpeg_compression_artifact_removal`.
         pretrained_on (str): 'gan', 'psnr' if `subtask` is `super_resolution`; '15', '50' if `subtask` is `denoising`; '40' if `subtask` is `jpeg_compression_artifact_removal`.
     """
 
@@ -224,7 +224,7 @@ class MAXIM(Tool):
             'deraining': ('Deraining', 'maxim_ckpt_Deraining_Rain13k_checkpoint.npz'),
             # 'raindrop_removal': ('Deraining', 'maxim_ckpt_Deraining_Raindrop_checkpoint.npz'),
             'dehazing': ('Dehazing', 'maxim_ckpt_Dehazing_SOTS-Outdoor_checkpoint.npz'),
-            'brightening': ('Enhancement', 'maxim_ckpt_Enhancement_LOL_checkpoint.npz'),
+            # 'brightening': ('Enhancement', 'maxim_ckpt_Enhancement_LOL_checkpoint.npz'),
             # 'retouching': ('Enhancement', 'maxim_ckpt_Enhancement_FiveK_checkpoint.npz')
         }
         self.opt_task, self.opt_ckpt_name = opt_dict[subtask]

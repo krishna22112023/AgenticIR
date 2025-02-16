@@ -1,6 +1,10 @@
 # An Intelligent Agentic System for Complex Image Restoration Problems
 Kaiwen Zhu<sup>\*</sup>, [Jinjin Gu](https://www.jasongt.com/)<sup>\*</sup>, [Zhiyuan You](https://zhiyuanyou.github.io/), [Yu Qiao](https://scholar.google.com/citations?hl=en&user=gFtI-8QAAAAJ), [Chao Dong](http://xpixel.group/)
 
+
+ICLR 2025
+
+
 [Paper](https://arxiv.org/abs/2410.17809) | [Project Page](https://kaiwen-zhu.github.io/research/agenticir)
 
 
