@@ -42,6 +42,9 @@ Restore an underwater image (from [this work](https://ieeexplore.ieee.org/docume
 Please refer to [INSTALL.md](installation/INSTALL.md).
 
 ## Usage
+### Fine-tuning DepictQA
+Please refer to [this](installation/FINE-TUNE.md).
+
 ### Setup
 + Fill in the API key in `config.yml`.
 + Run `python src/app_eval.py` and `python src/app_comp.py` in the directory `DepictQA`.
