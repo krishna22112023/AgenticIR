@@ -15,5 +15,5 @@ To fine-tune DepictQA, follow these steps:
     + `cd DepictQA/experiments/agenticir`
     + Run `python synthesize_lq.py` to synthesize the low-quality images.
     + Run `python build_meta.py` to synthesize the training data.
-+ In `DepictQA/experiments/agenticir/config_train.yaml`, Set the weight path of ViT (line 33), Vicuna (line 42), and the [pre-trained DepictQA](https://huggingface.co/zhiyuanyou/DepictQA2-Abstractor-DQ495K/blob/main/ckpt.pt) (line 49).
++ In `DepictQA/experiments/agenticir/config_train.yaml`, set the weight path of ViT (line 33), Vicuna (line 42), and the [pre-trained DepictQA](https://huggingface.co/zhiyuanyou/DepictQA2-Abstractor-DQ495K/blob/main/ckpt.pt) (line 49).
 + Run `sh train.sh ids_of_gpus` to fine-tune the model. The weights will be saved to `DepictQA/experiments/agenticir/ckpt/ckpt.pt`.
