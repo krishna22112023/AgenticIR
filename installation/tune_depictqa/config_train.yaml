@@ -5,7 +5,23 @@ data:
   root_dir: .
   num_workers: 2
   train:
-    meta_paths_weights: []  # [[path, weight], ...]
+    meta_paths_weights: [
+      [training_data/meta/d1-0.json, 1],
+      [training_data/meta/d1-1.json, 1],
+      [training_data/meta/d1-2.json, 1],
+      [training_data/meta/d1-3.json, 1],
+      [training_data/meta/d1-4.json, 1],
+      [training_data/meta/d2-0.json, 1],
+      [training_data/meta/d2-1.json, 1],
+      [training_data/meta/d2-2.json, 1],
+      [training_data/meta/d2-3.json, 1],
+      [training_data/meta/d2-4.json, 1],
+      [training_data/meta/d3-0.json, 1],
+      [training_data/meta/d3-1.json, 1],
+      [training_data/meta/d3-2.json, 1],
+      [training_data/meta/d3-3.json, 1],
+      [training_data/meta/d3-4.json, 1],
+    ]  # [[path, weight], ...]
   infer:  # set args to overwrite cfg.data.infer
     meta_path: null
     dataset_name: null
@@ -30,7 +46,7 @@ model:
     lora_alpha: 16
     lora_dropout: 0.1
     lora_target_modules: ['q_proj', 'k_proj', 'v_proj', 'o_proj']
-  delta_path: weights/delta/DQ495K_Abstractor.pt # load trained params, for resume / infer
+  delta_path: weights/depictqa_delta/DQ495K_Abstractor.pt # load trained params, for resume / infer
   unique_tag: true
 
 # train

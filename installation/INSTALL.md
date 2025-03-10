@@ -23,7 +23,7 @@ We employ the following models as single-degradation restoration tools: [DiffBIR
 + Download the weights.
     + Download the pre-trained ViT from [this link](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt) and put it in `DepictQA/weights/`.
     + Download the pre-trained Vicuna from [this link](https://huggingface.co/lmsys/vicuna-7b-v1.5/tree/main) and put it in `DepictQA/weights/`.
-    + Download the delta weights of DepictQA-Wild from [this link](https://huggingface.co/zhiyuanyou/DepictQA2-DQ495K/tree/main), rename it to `DQ495K.pt`, and put it in `DepictQA/weights/delta/`.
+    + Download the delta weights of DepictQA-Wild from [this link](https://huggingface.co/zhiyuanyou/DepictQA2-DQ495K/blob/main/ckpt.pt), rename it to `DQ495K_Abstractor.pt`, and put it in `DepictQA/weights/delta/`.
     + Download the delta weights fine-tuned from DepictQA-Wild from [this link](https://drive.google.com/file/d/1o-PN1iXctWl62Tdb8fZs1eD1Ehv6HBMh/view?usp=drive_link) and put it in `DepictQA/weights/delta/`.
 
     The structure of `DepictQA/weights` should look like this:
@@ -33,6 +33,26 @@ We employ the following models as single-degradation restoration tools: [DiffBIR
     ├── vicuna-7b-v1.5/
     │   └── ...
     └── delta/
-        ├── DQ495K.pt
+        ├── DQ495K_Abstractor.pt
         └── degra_eval.pt
     ```
+
+PS: If you want to fine-tune DepictQA, then
++ Data preparation
+    + Put the high-quality images in `DepictQA/experiments/agenticir/training_data/HQ` and the corresponding depth map in `DepictQA/experiments/agenticir/training_data/depth`, the structure of the directory `training_data` should look like this:
+        ```
+        training_data/
+        ├── HQ/
+        │   ├── 0001.png
+        │   └── ...
+        └── depth/
+            ├── 0001
+            │   └── predict_depth.mat
+            └── ...
+        ```
+        In our implementation, we use the data from [MiOIR](https://github.com/Xiangtaokong/MiOIR?tab=readme-ov-file#step1-download-the-training-data).
+    + `cd DepictQA/experiments/agenticir`
+    + Run `python synthesize_lq.py` to synthesize the low-quality images.
+    + Run `python build_meta.py` to synthesize the training data.
++ In `DepictQA/experiments/agenticir/config_train.yaml`, Set the weight path of ViT (line 33), Vicuna (line 42), and the [pre-trained DepictQA](https://huggingface.co/zhiyuanyou/DepictQA2-Abstractor-DQ495K/blob/main/ckpt.pt) (line 49).
++ Run `sh train.sh ids_of_gpus` to fine-tune the model. The weights will be saved to `DepictQA/experiments/agenticir/ckpt/ckpt.pt`.
