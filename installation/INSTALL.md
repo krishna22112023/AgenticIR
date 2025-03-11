@@ -14,8 +14,30 @@ We employ the following models as single-degradation restoration tools: [DiffBIR
 
 + Run `sh installation/deploy_tools.sh` to prepare the code, which is adapted from the official repos linked above.
 + Set up their respective environments according to the official repos.
-+ Download the weights. You may need to modify the paths in files in `executor`. A tutorial will be given if necessary.
+    + Note: The environment name has [a role in our framework](https://github.com/Kaiwen-Zhu/AgenticIR/blob/main/executor/tool.py#L73). It is recommended to use the names listed below. Otherwise, you may need to modify the scripts in `executor`.
+        <details>
+
+        <summary>Recommended environment names</summary>
+
+        + DiffBIR: `diffbir`
+        + X-Restormer: `xrestormer`
+        + SwinIR: `swinir`
+        + HAT: `hat`
+        + MPRNet: `mprnet`
+        + MAXIM: `maxim`
+        + Restormer: `restormer`
+        + DRBNet: `drbnet`
+        + IFAN: `ifan`
+        + RIDCP: `ridcp`
+        + DehazeFormer: `dehazeformer`
+        + FBCNN: `fbcnn`
+
+        </details>
+
++ Download the weights. You may need to modify the paths in scripts in `executor`. A tutorial will be given if necessary.
 + Run `python -m test_tool.test_tool` to check whether all tools work properly.
+
+PS: In our implementation, we use DiffBIR of the [`7bd5675`](https://github.com/XPixelGroup/DiffBIR/commit/7bd5675823c157b9afdd479b59a2bf0a8954ce11) commit version. After that, DiffBIR has undergone an overhaul, which may cause compatibility issues. It is recommended to use the code and weights of this version (`installation/deploy_tools.sh` has already checked out this version). Otherwise, you may need to customize an `inference.py` script in the `DiffBIR` directory following the logic of the tool call in our framework.
 
 ### Deploy [DepictQA](https://github.com/XPixelGroup/DepictQA)
 + Run `sh installation/deploy_depictqa.sh` to prepare the code, which is adapted from the official repo linked above.
