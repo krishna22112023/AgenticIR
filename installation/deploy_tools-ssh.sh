@@ -13,8 +13,12 @@ git clone git@github.com:JingyunLiang/SwinIR.git executor/denoising/tools/SwinIR
 
 git clone git@github.com:jiaxi-jiang/FBCNN.git executor/jpeg_compression_artifact_removal/tools/FBCNN
 
-git clone git@github.com:XPixelGroup/DiffBIR.git executor/super_resolution/tools/DiffBIR
 git clone git@github.com:XPixelGroup/HAT.git executor/super_resolution/tools/HAT
+git clone git@github.com:XPixelGroup/DiffBIR.git executor/super_resolution/tools/DiffBIR
+
+cd executor/super_resolution/tools/DiffBIR
+git checkout 7bd5675
+cd ../../../..
 
 # prepare custom scripts to adapt to our framework
 mv installation/custom_tool_scripts/drbnet_run.py executor/defocus_deblurring/tools/DRBNet/run.py
