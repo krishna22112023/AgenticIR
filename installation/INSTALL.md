@@ -45,7 +45,7 @@ PS: In our implementation, we use DiffBIR of the [`7bd5675`](https://github.com/
 + Download the weights.
     + Download the pre-trained ViT from [this link](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt) and put it in `DepictQA/weights/`.
     + Download the pre-trained Vicuna from [this link](https://huggingface.co/lmsys/vicuna-7b-v1.5/tree/main) and put it in `DepictQA/weights/`.
-    + Download the delta weights of DepictQA-Wild from [this link](https://huggingface.co/zhiyuanyou/DepictQA2-DQ495K/blob/main/ckpt.pt), rename it to `DQ495K_Abstractor.pt`, and put it in `DepictQA/weights/delta/`.
+    + Download the delta weights of DepictQA-Wild from [this link](https://huggingface.co/zhiyuanyou/DepictQA2-Abstractor-DQ495K/blob/main/ckpt.pt), rename it to `DQ495K_Abstractor.pt`, and put it in `DepictQA/weights/delta/`.
     + Download the delta weights fine-tuned from DepictQA-Wild from [this link](https://drive.google.com/file/d/1o-PN1iXctWl62Tdb8fZs1eD1Ehv6HBMh/view?usp=drive_link) and put it in `DepictQA/weights/delta/`.
 
     The structure of `DepictQA/weights` should look like this:
