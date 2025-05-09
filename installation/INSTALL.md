@@ -5,7 +5,8 @@
 ```bash
 conda create -n agenticir python=3.10
 conda activate agenticir
-pip install -r installation/requirements.txt
+pip install -r installation/requirements.txt 
+#If the above doesn't work try pip install --use-pep517 -r installation/requirements.txt
 ```
 
 ### Deploy IR models

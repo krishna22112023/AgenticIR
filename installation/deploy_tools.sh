@@ -33,6 +33,7 @@ ln -s $(pwd)/executor/dehazing/tools/maxim executor/denoising/tools/
 ln -s $(pwd)/executor/defocus_deblurring/tools/Restormer executor/denoising/tools/
 ln -s $(pwd)/executor/dehazing/tools/X-Restormer executor/denoising/tools/
 
+mkdir -p executor/deraining/tools/
 ln -s $(pwd)/executor/dehazing/tools/maxim executor/deraining/tools/
 ln -s $(pwd)/executor/denoising/tools/MPRNet executor/deraining/tools/
 ln -s $(pwd)/executor/defocus_deblurring/tools/Restormer executor/deraining/tools/
@@ -40,6 +41,7 @@ ln -s $(pwd)/executor/dehazing/tools/X-Restormer executor/deraining/tools/
 
 ln -s $(pwd)/executor/denoising/tools/SwinIR executor/jpeg_compression_artifact_removal/tools/
 
+mkdir -p executor/motion_deblurring/tools/
 ln -s $(pwd)/executor/dehazing/tools/maxim executor/motion_deblurring/tools/
 ln -s $(pwd)/executor/denoising/tools/MPRNet executor/motion_deblurring/tools/
 ln -s $(pwd)/executor/defocus_deblurring/tools/Restormer executor/motion_deblurring/tools/
